@@ -20,6 +20,9 @@ import (
 
 var db *gorm.DB
 
+//TODO: use struct for tasks and tasks are to be renamed to smth else
+var tasks []string
+
 func init() {
 	err := godotenv.Load(".env")
 	if err != nil {
@@ -34,15 +37,24 @@ func init() {
 }
 
 func main() {
+	defer db.Close()
+
+	tasks = append(tasks, "1")
+	tasks = append(tasks, "2")
+	tasks = append(tasks, "3")
+
 	cronObj := cron.New()
-	//TODO: init tasks from DB in a loop
-	cronObj.AddFunc("* * * * * *", func() {
-		dt := time.Now()
-		fmt.Println("Test save to DB at: ", dt.String())
+	cronObj.AddFunc("0 * * * * *", func() {
+		//TODO: init tasks from DB in a loop
+		//TODO: new tasks will be in tasks slice
+		// just one AddFunc is enough, all tasks are run
+		// in a loop, each of them in its own goroutine
+		for _, task := range tasks {
+			dt := time.Now()
+			fmt.Println("Test save to DB at: "+task, dt.String())
+		}
 	})
 	cronObj.Start()
-
-	defer db.Close()
 
 	router := gin.Default()
 
