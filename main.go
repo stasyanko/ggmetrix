@@ -1,12 +1,15 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
+	"time"
 
 	rice "github.com/GeertJohan/go.rice"
 	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
+	"github.com/robfig/cron"
 
 	//TODO: fork this repo and replace its link to fork
 	"github.com/foolin/gin-template/supports/gorice"
@@ -31,6 +34,14 @@ func init() {
 }
 
 func main() {
+	cronObj := cron.New()
+	//TODO: init tasks from DB in a loop
+	cronObj.AddFunc("* * * * * *", func() {
+		dt := time.Now()
+		fmt.Println("Test save to DB at: ", dt.String())
+	})
+	cronObj.Start()
+
 	defer db.Close()
 
 	router := gin.Default()
