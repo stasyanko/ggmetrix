@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"time"
+	"sync"
 
 	rice "github.com/GeertJohan/go.rice"
 	"github.com/jinzhu/gorm"
@@ -20,8 +20,21 @@ import (
 
 var db *gorm.DB
 
-//TODO: use struct for tasks and tasks are to be renamed to smth else
-var tasks []string
+//counters for counting the number of smth in mterics
+var counters = make(map[string]Counter)
+var counterLock = sync.RWMutex{}
+
+type Counter int
+
+func incrementCounter(title string) {
+	counterLock.Lock()
+	defer counterLock.Unlock()
+	if _, ok := counters[title]; !ok {
+		counters[title]++
+	} else {
+		counters[title] = 1
+	}
+}
 
 func init() {
 	err := godotenv.Load(".env")
@@ -39,19 +52,15 @@ func init() {
 func main() {
 	defer db.Close()
 
-	tasks = append(tasks, "1")
-	tasks = append(tasks, "2")
-	tasks = append(tasks, "3")
+	counters["test1"] = 5
+	counters["test2"] = 7
 
 	cronObj := cron.New()
-	cronObj.AddFunc("0 * * * * *", func() {
-		//TODO: init tasks from DB in a loop
-		//TODO: new tasks will be in tasks slice
-		// just one AddFunc is enough, all tasks are run
-		// in a loop, each of them in its own goroutine
-		for _, task := range tasks {
-			dt := time.Now()
-			fmt.Println("Test save to DB at: "+task, dt.String())
+	cronObj.AddFunc("* * * * * *", func() {
+		for k := range counters {
+			go incrementCounter(k)
+
+			fmt.Println("key:", counters[k])
 		}
 	})
 	cronObj.Start()
