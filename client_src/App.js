@@ -1,27 +1,24 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      select_options: []
     };
   }
 
-  componentDidMount() {
-    // async function fetchMyAPI() {
-    //   let response = await axios(
-    //     'http://localhost:3000/select_options',
-    //   )
-    //   let res = response.data
-    //   console.log(res);
-    // }
+  async componentDidMount() {
+    let response = await axios(process.env.MIX_GO_API_URL + "/select_options");
+    this.setState({
+      select_options: response.data.data
+    });
   }
 
   render() {
-    const selectOptionsReady = [].map(option => {
-      return <option>{option}</option>
+    const selectOptionsReady = this.state.select_options.map(option => {
+      return <option key={option.ID}>{option.Title + "." + option.Type}</option>
     });
 
     return (

@@ -27,6 +27,7 @@ var counterLock = sync.RWMutex{}
 
 type Counter int
 type DataModel = models.Data
+type MetricsTypeModel = models.MetricsType
 type CounterRequest struct {
 	Title string `form:"title" binding:"required"`
 }
@@ -82,7 +83,6 @@ func main() {
 				db.NewRecord(newCounter)
 				db.Create(&newCounter)
 				counters[counterTitle] = 0
-				// fmt.Println("key:", counters[counterTitle])
 			}(k)
 		}
 	})
@@ -101,9 +101,6 @@ func main() {
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", gin.H{"title": "ggmetrix"})
 	})
-	router.GET("/chart", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "chart.html", gin.H{"title": "ggmetrix"})
-	})
 	router.POST("/counter", func(c *gin.Context) {
 		var counterRequest CounterRequest
 		c.BindJSON(&counterRequest)
@@ -111,8 +108,14 @@ func main() {
 
 		c.JSON(http.StatusCreated, gin.H{"status": http.StatusCreated, "message": "Counter created"})
 	})
-	router.GET("/slect_options", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": "[1,2,3]"})
+	router.GET("/select_options", func(c *gin.Context) {
+		var metricsTypes []MetricsTypeModel
+
+		if err := db.Find(&metricsTypes).Error; err != nil {
+			c.AbortWithStatus(400)
+		} else {
+			c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": metricsTypes})
+		}
 	})
 
 	// Start server

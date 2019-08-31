@@ -16,7 +16,7 @@ func Initialize() (*gorm.DB, error) {
 	dbConfig := "host=" + os.Getenv("DB_HOST") + " port=" + os.Getenv("DB_PORT") + " user=" + os.Getenv("DB_USERNAME") + " dbname=" + os.Getenv("DB_DATABASE") + " password=" + os.Getenv("DB_PASSWORD")
 	db, err := gorm.Open("postgres", dbConfig)
 
-	db.AutoMigrate(&models.Data{})
+	db.AutoMigrate(&models.Data{}, &models.MetricsType{})
 
 	db.LogMode(true) // logs SQL
 	if err != nil {
