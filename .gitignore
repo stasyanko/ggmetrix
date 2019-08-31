@@ -1,1 +1,5 @@
+/node_modules
+/static/app.css
+/static/app.js
+/static/mix-manifest.json
 .env

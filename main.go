@@ -111,6 +111,9 @@ func main() {
 
 		c.JSON(http.StatusCreated, gin.H{"status": http.StatusCreated, "message": "Counter created"})
 	})
+	router.GET("/slect_options", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": "[1,2,3]"})
+	})
 
 	// Start server
 	router.Run(":8000")

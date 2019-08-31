@@ -1,0 +1,37 @@
+{
+  "name": "ggmetrix",
+  "version": "1.0.0",
+  "description": "#### Features  - Your custom SQL databases for metrics  - Simple to setup - just upload binary to your server  - No client for your language needed - just good old http request to send metrics  - Metrics aggregation out of the box  - Group metrics with precision up to milliseconds",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm run development",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "npm run development -- --watch",
+    "watch-poll": "npm run watch -- --watch-poll",
+    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stasyanko/ggmetrix.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stasyanko/ggmetrix/issues"
+  },
+  "homepage": "https://github.com/stasyanko/ggmetrix#readme",
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "laravel-mix": "^4.1.2",
+    "resolve-url-loader": "3.1.0",
+    "sass": "^1.22.10",
+    "sass-loader": "7.*",
+    "axios": "^0.19.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-scripts": "3.1.1"
+  }
+}
