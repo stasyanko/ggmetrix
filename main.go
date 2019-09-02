@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"sync"
@@ -38,6 +39,17 @@ func incrementCounter(title string) {
 	if _, ok := counters[title]; ok {
 		counters[title] = counters[title] + 1
 	} else {
+		// create new counter in metrics_types
+		newCounterType := MetricsTypeModel{
+			Title: title,
+			Type:  "counter",
+		}
+		db.NewRecord(newCounterType)
+		err := db.Create(&newCounterType).Error
+		// TODO: refactore to return error instead of panicking??
+		if err != nil {
+			panic(err)
+		}
 		counters[title] = 1
 	}
 }
@@ -56,8 +68,8 @@ func init() {
 
 	// init counters
 	// TODO: move to separate func
-	var countersFromDB []DataModel
-	if err := db.Select("DISTINCT(title)").Where("type = ?", "counter").Find(&countersFromDB).Error; err != nil {
+	var countersFromDB []MetricsTypeModel
+	if err := db.Select("DISTINCT(title), type").Where("type = ?", "counter").Find(&countersFromDB).Error; err != nil {
 		panic(err)
 	}
 	for _, counter := range countersFromDB {
@@ -81,7 +93,10 @@ func main() {
 					UnixTs: uint(time.Now().Unix()),
 				}
 				db.NewRecord(newCounter)
-				db.Create(&newCounter)
+				err := db.Create(&newCounter).Error
+				if err != nil {
+					fmt.Println(err)
+				}
 				counters[counterTitle] = 0
 			}(k)
 		}
@@ -101,6 +116,7 @@ func main() {
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", gin.H{"title": "ggmetrix"})
 	})
+	// inxrement counter
 	router.POST("/counter", func(c *gin.Context) {
 		var counterRequest CounterRequest
 		c.BindJSON(&counterRequest)
