@@ -23,13 +23,28 @@ export default class App extends Component {
 
     return (
       <div class="row d-flex">
-        <div class="col-sm-12 col-md-6 offset-md-3" style={{ paddingTop: '15px' }}>
-          <select class="form-control">
+        <div className="col-sm-12 col-md-6 offset-md-3" style={{ paddingTop: '15px' }}>
+          <div className="input-group">
+            <input type="text" class="form-control" ariaLabel="Metrics title" placeholder="Metrics title (e.g. page.views)" />
+
+            <select className="custom-select" id="type-selector">
+              <option selected>Choose type...</option>
+              <option value="counter">Counter</option>
+            </select>
+
+            <div className="input-group-append">
+              <button className="btn btn-outline-secondary" type="button">Create</button>
+            </div>
+          </div>
+        </div>
+
+        <div className="col-sm-12 col-md-6 offset-md-3" style={{ paddingTop: '15px' }}>
+          <select className="form-control">
             {selectOptionsReady}
           </select>
         </div>
 
-        <div class="col-sm-12 col-md-6 offset-md-3" style={{ paddingTop: '15px' }}>
+        <div className="col-sm-12 col-md-6 offset-md-3" style={{ paddingTop: '15px' }}>
 
         </div>
       </div>
