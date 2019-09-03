@@ -116,7 +116,18 @@ func main() {
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", gin.H{"title": "ggmetrix"})
 	})
-	// inxrement counter
+	router.GET("/counter/:title", func(c *gin.Context) {
+		title := c.Params.ByName("title")
+		var counterData []DataModel
+		fromTime := int32(time.Now().Unix()) - 86400
+
+		if err := db.Select("unix_ts, value, title").Where("title = ?", title).Where(" type = ?", "counter").Where("unix_ts >= ?", fromTime).Find(&counterData).Error; err != nil {
+			c.AbortWithStatus(400)
+		} else {
+			c.JSON(http.StatusOK, gin.H{"status": http.StatusOK, "data": counterData})
+		}
+	})
+	// increment counter
 	router.POST("/counter", func(c *gin.Context) {
 		var counterRequest CounterRequest
 		c.BindJSON(&counterRequest)
