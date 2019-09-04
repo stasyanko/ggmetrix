@@ -14,8 +14,6 @@ export default class App extends Component {
         'title': '',
       },
       counter_data: [],
-      //TODO: just test title
-      cur_metrics_title: '123',
     };
   }
 
@@ -26,7 +24,6 @@ export default class App extends Component {
     this.setState({
       select_options: selectOptsResponse.data.data,
       counter_data: countersResponse.data.data,
-      cur_metrics_title: selectOptsResponse.data.data[0]['Title'],
     });
   }
 
@@ -50,32 +47,24 @@ export default class App extends Component {
     }
   }
 
+  async setCurType(e) {
+    let a = e.target.value;
+    let countersResponse = await axios(process.env.MIX_GO_API_URL + "/counter/" + e.target.value);
+    debugger;
+    this.setState({
+      counter_data: countersResponse.data.data,
+    });
+  }
+
   render() {
     const selectOptionsReady = this.state.select_options.map(option => {
-      return <option key={option.ID}>{option.Title + "." + option.Type}</option>
+      return <option key={option.ID} value={option.Title}>{option.Title + "." + option.Type}</option>
     });
 
     return (
       <div class="row d-flex">
         <div className="col-sm-12 col-md-6 offset-md-3" style={{ paddingTop: '15px' }}>
-          <form className="was-validated">
-            <div className="input-group">
-              <input type="text" class="form-control" ariaLabel="Metrics title" placeholder="Metrics title (e.g. page.views)" required />
-
-              <select className="custom-select" id="type-selector" required>
-                <option>Choose type...</option>
-                <option value="counter">Counter</option>
-              </select>
-
-              <div className="input-group-append">
-                <button onClick={() => { this.createMetricsType() }} className="btn btn-outline-secondary" type="button">Create</button>
-              </div>
-            </div>
-          </form>
-        </div>
-
-        <div className="col-sm-12 col-md-6 offset-md-3" style={{ paddingTop: '15px' }}>
-          <select className="form-control">
+          <select className="form-control" onChange={(e) => { this.setCurType(e) }}>
             {selectOptionsReady}
           </select>
         </div>

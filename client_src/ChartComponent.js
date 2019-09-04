@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import {
     ResponsiveContainer, ComposedChart, Line, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
+import moment from 'moment';
 
 export default class ChartComponent extends PureComponent {
     constructor(props) {
@@ -21,7 +22,7 @@ export default class ChartComponent extends PureComponent {
                         }}
                     >
                         <CartesianGrid stroke="#f5f5f5" />
-                        <XAxis dataKey="UnixTs" />
+                        <XAxis type="number" name='Time' domain={['auto', 'auto']} dataKey="UnixTs" tickFormatter={unixTime => moment.unix(unixTime).format('DD/MM HH:mm')} />
                         <YAxis />
                         <Tooltip />
                         <Legend />
