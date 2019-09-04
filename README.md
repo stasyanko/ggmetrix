@@ -1,6 +1,10 @@
 # ggmetrix
 
+Ggmetrix collects metrics from multiple (possibly distributed) sources with ease, that is provides metrics aggregation. For example you have a job queue and you want to measure the number of jobs per minute or you have a bunch of microservices and you want to get the number of requests to your system.
+
 Ggmetrix is currently under development, pull requests are welcome!
+
+![workflow](https://raw.githubusercontent.com/stasyanko/ggmetrix/master/docs/images/workflow.png)
 
 #### Features
  - Your custom SQL databases for metrics
