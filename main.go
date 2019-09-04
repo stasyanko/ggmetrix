@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"sync"
 	"time"
 
@@ -114,7 +115,8 @@ func main() {
 
 	// Routes
 	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", gin.H{"title": "ggmetrix"})
+		baseUrl := os.Getenv("SCHEME") + "://" + os.Getenv("HOST") + ":" + os.Getenv("PORT")
+		c.HTML(http.StatusOK, "index.html", gin.H{"title": "ggmetrix", "base_api_url": baseUrl})
 	})
 	router.GET("/counter/:title", func(c *gin.Context) {
 		title := c.Params.ByName("title")

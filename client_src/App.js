@@ -18,8 +18,8 @@ export default class App extends Component {
   }
 
   async componentDidMount() {
-    let selectOptsResponse = await axios(process.env.MIX_GO_API_URL + "/select_options");
-    let countersResponse = await axios(process.env.MIX_GO_API_URL + "/counter/" + selectOptsResponse.data.data[0]['Title']);
+    let selectOptsResponse = await axios(window._sharedData.base_api_url + "/select_options");
+    let countersResponse = await axios(window._sharedData.base_api_url + "/counter/" + selectOptsResponse.data.data[0]['Title']);
 
     this.setState({
       select_options: selectOptsResponse.data.data,
@@ -29,7 +29,7 @@ export default class App extends Component {
 
   async createMetricsType() {
     if (this.state.create_form.type === 'counter') {
-      await axios.post(process.env.MIX_GO_API_URL + "/counter", {
+      await axios.post(window._sharedData.base_api_url + "/counter", {
         title: this.state.create_form.title
       });
       this.setState(prevState => ({
@@ -49,7 +49,7 @@ export default class App extends Component {
 
   async setCurType(e) {
     let a = e.target.value;
-    let countersResponse = await axios(process.env.MIX_GO_API_URL + "/counter/" + e.target.value);
+    let countersResponse = await axios(window._sharedData.base_api_url + "/counter/" + e.target.value);
     debugger;
     this.setState({
       counter_data: countersResponse.data.data,

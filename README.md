@@ -3,6 +3,13 @@
 Ggmetrix collects metrics from multiple (possibly distributed) sources with ease, that is provides metrics aggregation. For example you have a job queue and you want to measure the number of jobs per minute or you have a bunch of microservices and you want to get the number of requests to your system.
 
 Ggmetrix is currently under development, pull requests are welcome!
+Binary version is to be released, but you can compile it yourself like this:
+
+`npm install`
+`npm run prod`
+`go build main.go`
+
+Rename .env.example to .env and set your environmental variables.
 
 ![workflow](https://raw.githubusercontent.com/stasyanko/ggmetrix/master/docs/images/workflow.png)
 
