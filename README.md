@@ -9,7 +9,7 @@ Ggmetrix is currently under development, pull requests are welcome!
 #### Features
  - Your custom SQL databases for metrics
  - Simple to setup - just upload binary to your server
- - No client for your language needed - just good old http request to send metrics
+ - Client libs for popular languages (in development)
  - Metrics aggregation out of the box
  - Admin panel included 
 
