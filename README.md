@@ -11,7 +11,9 @@ Binary version is to be released, but you can compile it yourself like this:
 
 Rename .env.example to .env and set your environmental variables.
 
-![workflow](https://raw.githubusercontent.com/stasyanko/ggmetrix/master/docs/images/workflow.png)
+<p align="center">
+  <img width="450" height="400" src="https://raw.githubusercontent.com/stasyanko/ggmetrix/master/docs/images/workflow.png">
+</p>
 
 #### Features
  - Your custom SQL databases for metrics
@@ -29,4 +31,4 @@ Monitoring systems are usually hard to setup and mantain. Ggmetrics is supposed 
 - gauge metrics type
 - basic auth for admin panel
 - auth in header like jwt
-- cLient libs for node.js, php, go
+- client libs for node.js, php, go
