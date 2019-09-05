@@ -26,6 +26,8 @@ Rename .env.example to .env and set your environmental variables.
 
 Monitoring systems are usually hard to setup and mantain. Ggmetrics is supposed to solve these problems and offers super simple setup and more awesome features like simple metrics aggregation. Yeah, I wanted to use metrics aggregation in my project, but this feature is either offered by paid services, or it is hard to setup in systems like Prometheus (though for other purposes it is great). That's why ggmetrix was created.
 
+Created with :heart: with such great tools as gin framework, gorm, react.js.
+
 #### TODO:
 - ~~counter metrics type~~
 - gauge metrics type
