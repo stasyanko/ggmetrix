@@ -59,7 +59,7 @@ func incrementCounter(title string) {
 func init() {
 	err := godotenv.Load(".env")
 	if err != nil {
-		log.Fatal("Please provice .env file with configuration!")
+		log.Fatal("Please provide .env file with configuration!")
 	}
 	if utils.IsDevEnv() == false {
 		gin.SetMode(gin.ReleaseMode)
