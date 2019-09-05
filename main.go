@@ -19,6 +19,7 @@ import (
 
 	"github.com/stasyanko/ggmetrix/database"
 	"github.com/stasyanko/ggmetrix/models"
+	"github.com/stasyanko/ggmetrix/utils"
 )
 
 var db *gorm.DB
@@ -58,7 +59,10 @@ func incrementCounter(title string) {
 func init() {
 	err := godotenv.Load(".env")
 	if err != nil {
-		panic(err)
+		log.Fatal("Please provice .env file with configuration!")
+	}
+	if utils.IsDevEnv() == false {
+		gin.SetMode(gin.ReleaseMode)
 	}
 
 	var dbErr error
@@ -148,7 +152,7 @@ func main() {
 	})
 
 	// Start server
-	router.Run(":8000")
+	router.Run(":" + os.Getenv("PORT"))
 }
 
 func createCounter(title string) {

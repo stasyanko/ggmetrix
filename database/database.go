@@ -1,7 +1,6 @@
 package database
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -9,6 +8,7 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 
 	"github.com/stasyanko/ggmetrix/models"
+	"github.com/stasyanko/ggmetrix/utils"
 )
 
 // Initialize initializes the database
@@ -19,11 +19,10 @@ func Initialize() (*gorm.DB, error) {
 
 	db.AutoMigrate(&models.Data{}, &models.MetricsType{})
 
-	db.LogMode(true) // logs SQL
+	db.LogMode(utils.IsDevEnv())
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("Connected to database")
 
 	return db, err
 }
