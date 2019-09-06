@@ -18,7 +18,7 @@ export default class ChartComponent extends PureComponent {
                         height={600}
                         data={this.props.data}
                         margin={{
-                            top: 20, right: 0, bottom: 20, left: 0,
+                            top: 20, right: 50, bottom: 20, left: 0,
                         }}
                     >
                         <CartesianGrid stroke="#f5f5f5" />

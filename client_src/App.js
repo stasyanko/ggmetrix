@@ -63,13 +63,13 @@ export default class App extends Component {
     return (
       <div className="container">
         <div class="row d-flex">
-          <div className="col-sm-12 col-md-6 offset-md-3" style={{ paddingTop: '15px' }}>
+          <div className="col-sm-12 col-md-4 offset-md-4" style={{ paddingTop: '15px' }}>
             <select className="form-control" onChange={(e) => { this.setCurType(e) }}>
               {selectOptionsReady}
             </select>
           </div>
 
-          <div className="col-sm-12 col-md-6 offset-md-3" style={{ paddingTop: '15px' }}>
+          <div className="col-sm-12 col-md-12" style={{ paddingTop: '15px' }}>
             <ChartComponent data={this.state.counter_data} />
           </div>
         </div>
