@@ -14,11 +14,11 @@ export default class ChartComponent extends PureComponent {
             <div style={{ width: '100%', height: 300 }}>
                 <ResponsiveContainer>
                     <ComposedChart
-                        width={500}
-                        height={400}
+                        width={800}
+                        height={600}
                         data={this.props.data}
                         margin={{
-                            top: 20, right: 20, bottom: 20, left: 20,
+                            top: 20, right: 0, bottom: 20, left: 0,
                         }}
                     >
                         <CartesianGrid stroke="#f5f5f5" />

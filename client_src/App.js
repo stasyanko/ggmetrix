@@ -50,7 +50,6 @@ export default class App extends Component {
   async setCurType(e) {
     let a = e.target.value;
     let countersResponse = await axios(window._sharedData.base_api_url + "/counter/" + e.target.value);
-    debugger;
     this.setState({
       counter_data: countersResponse.data.data,
     });
@@ -62,15 +61,17 @@ export default class App extends Component {
     });
 
     return (
-      <div class="row d-flex">
-        <div className="col-sm-12 col-md-6 offset-md-3" style={{ paddingTop: '15px' }}>
-          <select className="form-control" onChange={(e) => { this.setCurType(e) }}>
-            {selectOptionsReady}
-          </select>
-        </div>
+      <div className="container">
+        <div class="row d-flex">
+          <div className="col-sm-12 col-md-6 offset-md-3" style={{ paddingTop: '15px' }}>
+            <select className="form-control" onChange={(e) => { this.setCurType(e) }}>
+              {selectOptionsReady}
+            </select>
+          </div>
 
-        <div className="col-sm-12 col-md-6 offset-md-3" style={{ paddingTop: '15px' }}>
-          <ChartComponent data={this.state.counter_data} />
+          <div className="col-sm-12 col-md-6 offset-md-3" style={{ paddingTop: '15px' }}>
+            <ChartComponent data={this.state.counter_data} />
+          </div>
         </div>
       </div>
     );
