@@ -30,12 +30,11 @@ Created with :heart: with such great tools as gin framework, gorm, react.js.
 
 #### TODO:
 - ~~counter metrics type~~
-  commander CLI (possibly cobra)
-  replace dotenv config with viper ??
+- commander CLI (possibly cobra)
+- replace dotenv config with viper ??
 - basic auth for admin panel
 - auth in header like jwt
-  client lib for node.js
-  client lib for php
-  client lib for go
+- client lib for node.js
+- client lib for php
+- client lib for go
 - gauge metrics type
-- 
